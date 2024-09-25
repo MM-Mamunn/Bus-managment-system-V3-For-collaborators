@@ -1,0 +1,38 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+db.sqlite3  # if you're using SQLite for development
+
+# If you are using Django migrations:
+*/migrations/*
+!*/migrations/__init__.py
+
+# Media files
+media/
+staticfiles/
+
+# Secrets or configuration files
+.env
+*.pem
