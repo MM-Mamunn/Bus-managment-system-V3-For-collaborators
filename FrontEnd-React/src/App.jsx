@@ -43,6 +43,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             {/* Apply SharedComponent to all routes */}
+            <Route path="auth" element={<AuthPage />} />
             <Route path="/" element={<SharedComponent />}>
               <Route index element={<Home />} />
 
@@ -109,7 +110,6 @@ function App() {
               </Route>
 
               <Route path="about_us" element={<About_us />} />
-              <Route path="auth" element={<AuthPage />} />
             </Route>
           </Routes>
         </BrowserRouter>

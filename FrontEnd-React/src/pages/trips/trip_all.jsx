@@ -36,7 +36,7 @@ function Trip_all() {
       .get("http://127.0.0.1:8000/api/trip_all?limit=1000")
       .then((res) => {
         setdrivers(res?.data?.data?.users);
-        console.log(res);
+        // console.log(res);
       })
       .catch((error) => {
         console.log(error);
@@ -44,21 +44,22 @@ function Trip_all() {
   }, []);
   return (
     <div className="p-6">
-      <div className="flex justify-between items-center mb-4">
-        <div className="flex items-center space-x-3">
+      <div className="flex flex-col lg:flex-row justify-between items-center mb-4 space-y-4 lg:space-y-0 space-x-2">
+        <div className="flex items-center w-full space-x-3">
           <Input
-            className="w-80"
+            className="w-full lg:w-64"
             placeholder="Search by driver name or bus id"
             icon={<FaSearch />}
           />
-          <Button>
-            <FaSearch />
+          <Button className="block p-2">
+            <FaSearch className="text-lg" />
           </Button>
         </div>
-        <div className="flex justify-around items-center gap-x-2">
+
+        <div className="flex flex-col w-full lg:w-auto space-y-4 lg:space-y-0 lg:flex-row justify-around items-center gap-x-2">
           <Dialog>
             <DialogTrigger asChild>
-              <Button className="flex items-center space-x-2 text-white px-4 py-2 rounded-lg shadow-md transition-all duration-300 ease-in-out ">
+              <Button className="flex items-center w-full space-x-2 text-white px-4 py-2 rounded-lg shadow-md transition-all duration-300 ease-in-out ">
                 Count Trips
               </Button>
             </DialogTrigger>
@@ -88,7 +89,7 @@ function Trip_all() {
           </Dialog>
           <Dialog>
             <DialogTrigger asChild>
-              <Button className="flex items-center space-x-2 text-white px-4 py-2 rounded-lg shadow-md transition-all duration-300 ease-in-out ">
+              <Button className="flex items-center w-full space-x-2 text-white px-4 py-2 rounded-lg shadow-md transition-all duration-300 ease-in-out ">
                 Check Payment
               </Button>
             </DialogTrigger>
@@ -119,7 +120,7 @@ function Trip_all() {
 
           <Dialog>
             <DialogTrigger asChild>
-              <Button className="flex items-center space-x-2 text-white px-4 py-2 rounded-lg shadow-md transition-all duration-300 ease-in-out ">
+              <Button className="flex items-center w-full space-x-2 text-white px-4 py-2 rounded-lg shadow-md transition-all duration-300 ease-in-out ">
                 <IoMdAddCircle className="mr-2 text-xl" />
                 Insert New Trip
               </Button>

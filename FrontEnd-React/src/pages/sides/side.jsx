@@ -10,8 +10,10 @@ import {
   FaChevronRight,
 } from "react-icons/fa";
 import { useState } from "react";
-
+import { useGlobalContext } from "@/context";
+import { IoMdClose } from "react-icons/io";
 const Side = () => {
+  const { showSideBar, setShowSideBar } = useGlobalContext();
   // State to manage which section is open
   const [openSection, setOpenSection] = useState(null);
 
@@ -20,9 +22,28 @@ const Side = () => {
   };
 
   return (
-    <div className="w-64 bg-white text-black h-screen overflow-y-auto p-4 shadow-lg fixed top-0 z-40 left-0 pt-24  transition-all duration-300">
+    <div
+      className={`w-64 bg-white text-black h-screen overflow-y-auto p-4 shadow-lg fixed top-0 z-40 ${
+        showSideBar ? "left-0" : "-left-64"
+      } md:left-0 md:pt-24  transition-all duration-300`}
+    >
+      <div className="flex md:hidden w-fulll justify-center items-center">
+        <div className="text-lg  ml-2 my-10 font-bold">
+          Bus Management System
+        </div>
+        <IoMdClose
+          className="cursor-pointer"
+          onClick={() => setShowSideBar(!showSideBar)}
+          size={40}
+        />
+      </div>
+
       {/* Dashboard Link */}
-      <Link to="/" className="block mb-6">
+      <Link
+        to="/"
+        className="block mb-6"
+        onClick={() => setShowSideBar(!showSideBar)}
+      >
         <div className="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded ">
           <FaTachometerAlt className="text-lg" />
           <span className="text-lg font-semibold">Dashboard</span>
@@ -31,15 +52,16 @@ const Side = () => {
 
       {/* Trips Section */}
       <div className="mb-4">
-        <div
+        <Link
+          to="/trips_home/trip_all"
           className="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded cursor-pointer"
-          onClick={() => toggleSection("trips")}
+          onClick={() => setShowSideBar(!showSideBar)}
         >
           <FaTripadvisor className="text-lg" />
           <span>Trips</span>
-          {openSection === "trips" ? <FaChevronDown /> : <FaChevronRight />}
-        </div>
-        {openSection === "trips" && (
+          {/* {openSection === "trips" ? <FaChevronDown /> : <FaChevronRight />} */}
+        </Link>
+        {/* {openSection === "trips" && (
           <ul className="pl-6">
             <li className="mt-2">
               <Link
@@ -82,7 +104,7 @@ const Side = () => {
               </Link>
             </li>
           </ul>
-        )}
+        )} */}
       </div>
 
       {/* Drivers Section */}

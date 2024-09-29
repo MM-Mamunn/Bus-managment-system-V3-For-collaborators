@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FaBus } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { FaCircleQuestion } from "react-icons/fa6";
+import { FaCircleQuestion, FaBars } from "react-icons/fa6";
 import { CiUser, CiLogout } from "react-icons/ci";
 import {
   DropdownMenu,
@@ -16,10 +16,14 @@ import {
 import { useGlobalContext } from "@/context";
 
 export default function Header() {
-  const { userInfo } = useGlobalContext();
+  const { userInfo, setShowSideBar, showSideBar } = useGlobalContext();
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-6 py-4 bg-gray-100">
-      <Link to="/" className="flex items-center space-x-2">
+    <nav className="fixed top-0 left-0 right-0 md:z-50 flex justify-between items-center px-6 py-4 bg-gray-100">
+      <FaBars
+        className="block md:hidden cursor-pointer"
+        onClick={() => setShowSideBar(!showSideBar)}
+      />
+      <Link to="/" className="hidden md:flex items-center space-x-2">
         <FaBus className="text-base sm:text-lg md:text-xl" />
         <span className="text-base sm:text-lg md:text-xl font-bold">
           Bus Management System

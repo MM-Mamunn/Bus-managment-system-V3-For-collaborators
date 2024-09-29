@@ -12,21 +12,16 @@ const AuthPage = () => {
   const [registerPassword, setRegisterPassword] = useState("");
   const [confirmRegisterPassword, setConfirmRegisterPassword] = useState("");
 
-  // Login function
   const handleLogin = () => {
-    // Handle login logic here
     console.log("Logging in with", { email, password });
   };
 
-  // Register function
   const handleRegister = () => {
-    // Handle register logic here
     console.log("Registering with", { fullName, username, registerPassword });
   };
 
   return (
     <div className="flex h-screen bg-gray-100">
-      {/* Left side image */}
       <div className="hidden md:flex md:w-1/2 bg-cover bg-center">
         <img
           src={coverImage}
@@ -35,19 +30,16 @@ const AuthPage = () => {
         />
       </div>
 
-      {/* Right side form */}
       <div className="flex flex-col justify-center w-full md:w-1/2 bg-white p-8">
         <h2 className="text-3xl font-semibold text-center mb-6">
           {activeTab === "login" ? "Welcome..." : "Create an account..."}
         </h2>
         <div className="mx-auto w-full max-w-md">
-          {/* Tabs */}
           <Tabs
             value={activeTab}
             onValueChange={(value) => setActiveTab(value)}
             className="w-full"
           >
-            {/* Tab list for switching between login and register */}
             <TabsList className="flex justify-around">
               <TabsTrigger value="login" className="w-full">
                 Login
@@ -57,7 +49,6 @@ const AuthPage = () => {
               </TabsTrigger>
             </TabsList>
 
-            {/* Login Tab Content */}
             <TabsContent value="login">
               <div className="mb-4">
                 <Label htmlFor="email">Email</Label>
@@ -86,7 +77,6 @@ const AuthPage = () => {
               </Button>
             </TabsContent>
 
-            {/* Register Tab Content */}
             <TabsContent value="register">
               <div className="mb-4">
                 <Label htmlFor="fullname">Full Name</Label>

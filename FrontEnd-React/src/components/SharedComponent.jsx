@@ -14,7 +14,7 @@ const SharedComponent = () => {
         <Side />
 
         {/* Main content */}
-        <div className="w-full pl-64 pt-20">
+        <div className="w-full md:pl-64 pt-20">
           {/* This is where all child routes like Home, Drivers, Buses, etc., will be rendered */}
           <Outlet />
         </div>
