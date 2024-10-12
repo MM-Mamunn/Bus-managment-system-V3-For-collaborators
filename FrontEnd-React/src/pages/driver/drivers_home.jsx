@@ -1,4 +1,3 @@
-
 import Header from "../../components/nav";
 import Footer from "../../components/footer";
 import Driver_side from "../sides/driver_side";
@@ -7,10 +6,14 @@ function Driver_home() {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
-  return (
-    <>
+  return <></>;
+}
+
+export default Driver_home; /*}
+/*
+ <>
       <Header />
-      {/* <Tripheader /> */}
+      {/* <Tripheader /> }
       <div className="mainn " style={{ backgroundColor: "#2f2b51" }}>
         <div className="containerr">
           <div className="bx1 box">
@@ -27,7 +30,7 @@ function Driver_home() {
                 Complete Solution for Maintaining Your Drivers
               </p>
 
-              {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-4xl">
+              {  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-4xl">
                 <a
                   href="/trips_home"
                   className="bg-stone-300 rounded-lg shadow-md p-6 transform hover:scale-105 transition-transform duration-300"
@@ -92,7 +95,7 @@ function Driver_home() {
                     Generate detailed reports for insights and decision making.
                   </p>
                 </a>
-              </div> */}
+              </div> 
             </div>
           </div>
           <div className="bx3 box">
@@ -104,7 +107,4 @@ function Driver_home() {
         <Footer />
       </footer>
     </>
-  );
-}
-
-export default Driver_home;
+*/

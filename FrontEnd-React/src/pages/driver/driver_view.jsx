@@ -1,30 +1,226 @@
 import axios from "axios";
-import Header from "../../components/nav";
-import "../CSS/main2.css";
-import { useState } from "react";
-import { useEffect } from "react";
-import Footer from "../../components/footer";
-import Side from "../sides/side";
-import dImage from "../image/bus2.png";
-import { Link, NavLink } from "react-router-dom";
-import Driver_side from "../sides/driver_side";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { IoMdAddCircle } from "react-icons/io";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { FaSearch, FaIdCard, FaBusAlt, FaUser } from "react-icons/fa";
+const dImage = "https://github.com/shadcn.png";
+import { BsThreeDots } from "react-icons/bs";
 
-function Driver_view() {
-  const [drivers, setdrivers] = useState([]);
+function DriverView() {
+  const [drivers, setDrivers] = useState([]);
+
   useEffect(() => {
     axios
       .get("http://127.0.0.1:8000/api/driver_view?limit=1000")
       .then((res) => {
-        setdrivers(res?.data?.data?.users);
-        console.log(res);
+        setDrivers(res?.data?.data?.users);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
+
   return (
-    <>
-      <Header />
+    <div className="p-6">
+      {/* Search Section */}
+      <div className="flex flex-col lg:flex-row justify-between items-center mb-4 space-y-4 lg:space-y-0 space-x-2">
+        <div className="flex items-center w-full space-x-3">
+          <Input
+            className="w-full lg:w-64"
+            placeholder="Search by driver name or bus ID"
+          />
+          <Button className="p-2">
+            <FaSearch className="text-lg" />
+          </Button>
+        </div>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className="flex items-center w-full space-x-2 text-white px-4 py-2 rounded-lg shadow-md transition-all duration-300 ease-in-out ">
+              <IoMdAddCircle className="mr-2 text-xl" />
+              Insert New Driver
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[500px] bg-gray-50 p-6 rounded-lg shadow-lg">
+            <DialogHeader>
+              <DialogTitle className="text-xl font-semibold text-gray-800">
+                Insert New Driver
+              </DialogTitle>
+              <DialogDescription className="text-sm text-gray-500">
+                Fill out the details for the new driver. Click save to insert
+                it.
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="grid gap-6 py-6">
+              {/* Driver ID Field */}
+              <div className="flex justify-center w-full h-full items-center gap-4">
+                <Label
+                  htmlFor="driverId"
+                  className="w-1/3 text-right font-medium text-gray-700"
+                >
+                  Driver ID
+                </Label>
+                <Input
+                  id="driverId"
+                  placeholder="Enter Driver ID"
+                  className="w-full"
+                />
+              </div>
+
+              {/* Bus ID Field */}
+              <div className="flex items-center gap-4">
+                <Label
+                  htmlFor="busId"
+                  className="w-1/3 text-right font-medium text-gray-700"
+                >
+                  Name
+                </Label>
+                <Input
+                  id="name"
+                  placeholder="Enter Driver Name"
+                  className="w-full"
+                />
+              </div>
+
+              <div className="flex items-center gap-4">
+                <Label
+                  htmlFor="age"
+                  className="w-1/3 text-right font-medium text-gray-700"
+                >
+                  Age
+                </Label>
+                <Input
+                  type="number"
+                  id="age"
+                  placeholder="Enter Driver Age"
+                  className="w-full"
+                />
+              </div>
+
+              {/* Route Field */}
+              <div className="flex items-center gap-4">
+                <Label
+                  htmlFor="route"
+                  className="w-1/3 text-right font-medium text-gray-700"
+                >
+                  License No
+                </Label>
+                <Input
+                  id="route"
+                  placeholder="Enter Lisence No"
+                  className="w-full"
+                />
+              </div>
+            </div>
+
+            <DialogFooter>
+              <Button
+                type="submit"
+                className="text-white px-4 py-2 rounded-lg shadow-md transition-all duration-300 ease-in-out"
+              >
+                Insert
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </div>
+
+      {/* Drivers List */}
+      <div className="grid justify-around  gap-6 lg:grid-cols-3 sm:grid-cols-2">
+        {drivers?.map((driver) => (
+          <div
+            key={driver?.driver_id}
+            className="max-w-sm p-6 bg-black border border-gray-700 rounded-lg shadow-lg transition-transform hover:scale-105"
+          >
+            {/* Dropdown Button */}
+            <div className="flex justify-end">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button className="text-white hover:bg-gray-800 p-1.5">
+                    <BsThreeDots />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  align="end"
+                  className="bg-black border border-gray-700 text-white"
+                >
+                  <DropdownMenuItem asChild>
+                    <Link to={`/trips_home/count_trip/${driver?.driver_id}`}>
+                      Count Trip
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to={`/trips_home/payment/${driver?.driver_id}`}>
+                      Count Payment
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>Edit</DropdownMenuItem>
+
+                  <DropdownMenuItem className="text-red-600">
+                    Delete
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+
+            {/* Driver Info */}
+            <div className="flex flex-col items-center text-white">
+              <div className="relative w-24 h-24 mb-3">
+                <img
+                  className="w-24 h-24 rounded-full border-4 border-white shadow-lg"
+                  src={dImage}
+                  alt="Driver"
+                />
+                <span className="absolute bottom-0 right-0 text-white bg-gray-900 p-1 rounded-full">
+                  <FaUser size={18} />
+                </span>
+              </div>
+              <h5 className="text-xl font-semibold">{driver?.name}</h5>
+              <div className="mt-2 text-sm text-gray-400">
+                <div className="flex items-center space-x-2">
+                  <FaIdCard className="text-gray-400" />
+                  <span>License: {driver?.license_no}</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <FaBusAlt className="text-gray-400" />
+                  <span>Driver ID: {driver?.driver_id}</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <FaUser className="text-gray-400" />
+                  <span>Age: {driver?.age}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default DriverView;
+
+/*
+<>
+  <Header />
       <div className="mainn " style={{ backgroundColor: "#2f2b51" }}>
         <div className="containerr">
           <div className="bx1 box">
@@ -139,7 +335,4 @@ function Driver_view() {
         <Footer />
       </footer>
     </>
-  );
-}
-
-export default Driver_view;
+    */
