@@ -11,6 +11,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "react-datepicker";
 import {
   Dialog,
   DialogContent,
@@ -26,7 +28,8 @@ import { BsThreeDots } from "react-icons/bs";
 
 function DriverView() {
   const [drivers, setDrivers] = useState([]);
-
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   useEffect(() => {
     axios
       .get("http://127.0.0.1:8000/api/driver_view?limit=1000")
@@ -51,96 +54,172 @@ function DriverView() {
             <FaSearch className="text-lg" />
           </Button>
         </div>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button className="flex items-center w-full space-x-2 text-white px-4 py-2 rounded-lg shadow-md transition-all duration-300 ease-in-out ">
-              <IoMdAddCircle className="mr-2 text-xl" />
-              Insert New Driver
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[500px] bg-gray-50 p-6 rounded-lg shadow-lg">
-            <DialogHeader>
-              <DialogTitle className="text-xl font-semibold text-gray-800">
-                Insert New Driver
-              </DialogTitle>
-              <DialogDescription className="text-sm text-gray-500">
-                Fill out the details for the new driver. Click save to insert
-                it.
-              </DialogDescription>
-            </DialogHeader>
 
-            <div className="grid gap-6 py-6">
-              {/* Driver ID Field */}
-              <div className="flex justify-center w-full h-full items-center gap-4">
-                <Label
-                  htmlFor="driverId"
-                  className="w-1/3 text-right font-medium text-gray-700"
-                >
-                  Driver ID
-                </Label>
-                <Input
-                  id="driverId"
-                  placeholder="Enter Driver ID"
-                  className="w-full"
-                />
-              </div>
-
-              {/* Bus ID Field */}
-              <div className="flex items-center gap-4">
-                <Label
-                  htmlFor="busId"
-                  className="w-1/3 text-right font-medium text-gray-700"
-                >
-                  Name
-                </Label>
-                <Input
-                  id="name"
-                  placeholder="Enter Driver Name"
-                  className="w-full"
-                />
-              </div>
-
-              <div className="flex items-center gap-4">
-                <Label
-                  htmlFor="age"
-                  className="w-1/3 text-right font-medium text-gray-700"
-                >
-                  Age
-                </Label>
-                <Input
-                  type="number"
-                  id="age"
-                  placeholder="Enter Driver Age"
-                  className="w-full"
-                />
-              </div>
-
-              {/* Route Field */}
-              <div className="flex items-center gap-4">
-                <Label
-                  htmlFor="route"
-                  className="w-1/3 text-right font-medium text-gray-700"
-                >
-                  License No
-                </Label>
-                <Input
-                  id="route"
-                  placeholder="Enter Lisence No"
-                  className="w-full"
-                />
-              </div>
-            </div>
-
-            <DialogFooter>
-              <Button
-                type="submit"
-                className="text-white px-4 py-2 rounded-lg shadow-md transition-all duration-300 ease-in-out"
-              >
-                Insert
+        <div className="flex flex-col w-full lg:w-auto space-y-4 lg:space-y-0 lg:flex-row justify-around items-center gap-x-2">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className="flex items-center w-full space-x-2 text-white px-4 py-2 rounded-lg shadow-md transition-all duration-300 ease-in-out ">
+                Total Distance
               </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[500px] bg-gray-50 p-6 rounded-lg shadow-lg">
+              <DialogHeader>
+                <DialogTitle className="text-xl font-semibold text-gray-800">
+                  Check Total Distance
+                </DialogTitle>
+              </DialogHeader>
+              <div className="grid gap-6 py-6">
+                <div className="flex justify-center w-full h-full items-center gap-4">
+                  <Label
+                    htmlFor="driverId"
+                    className="w-1/3 text-right font-medium text-gray-700"
+                  >
+                    Driver ID
+                  </Label>
+                  <Input
+                    id="driverId"
+                    placeholder="Enter Driver ID"
+                    className="w-full"
+                  />
+                </div>
+                <div className="flex items-center gap-4">
+                  <Label
+                    htmlFor="startDate"
+                    className="w-1/3 text-right font-medium text-gray-700"
+                  >
+                    Start Date
+                  </Label>
+                  <div className="relative w-full">
+                    <DatePicker
+                      id="startDate"
+                      selected={startDate}
+                      onChange={(date) => setStartDate(date)}
+                      dateFormat="MM-dd-yyyy"
+                      placeholderText="   Select a start date"
+                      showIcon
+                    />
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <Label
+                    htmlFor="endDate"
+                    className="w-1/3 text-right font-medium text-gray-700"
+                  >
+                    End Date
+                  </Label>
+                  <div className="relative w-full">
+                    <DatePicker
+                      id="endDate"
+                      selected={endDate}
+                      onChange={(date) => setEndDate(date)}
+                      dateFormat="MM-dd-yyyy"
+                      placeholderText="   Select a end date"
+                      showIcon
+                    />
+                  </div>
+                </div>
+              </div>
+              <DialogFooter>
+                <Button
+                  type="submit"
+                  className="text-white px-4 py-2 rounded-lg shadow-md transition-all duration-300 ease-in-out"
+                >
+                  Submit
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className="flex items-center w-full space-x-2 text-white px-4 py-2 rounded-lg shadow-md transition-all duration-300 ease-in-out ">
+                <IoMdAddCircle className="mr-2 text-xl" />
+                Insert New Driver
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[500px] bg-gray-50 p-6 rounded-lg shadow-lg">
+              <DialogHeader>
+                <DialogTitle className="text-xl font-semibold text-gray-800">
+                  Insert New Driver
+                </DialogTitle>
+                <DialogDescription className="text-sm text-gray-500">
+                  Fill out the details for the new driver. Click save to insert
+                  it.
+                </DialogDescription>
+              </DialogHeader>
+
+              <div className="grid gap-6 py-6">
+                {/* Driver ID Field */}
+                <div className="flex justify-center w-full h-full items-center gap-4">
+                  <Label
+                    htmlFor="driverId"
+                    className="w-1/3 text-right font-medium text-gray-700"
+                  >
+                    Driver ID
+                  </Label>
+                  <Input
+                    id="driverId"
+                    placeholder="Enter Driver ID"
+                    className="w-full"
+                  />
+                </div>
+
+                {/* Bus ID Field */}
+                <div className="flex items-center gap-4">
+                  <Label
+                    htmlFor="busId"
+                    className="w-1/3 text-right font-medium text-gray-700"
+                  >
+                    Name
+                  </Label>
+                  <Input
+                    id="name"
+                    placeholder="Enter Driver Name"
+                    className="w-full"
+                  />
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <Label
+                    htmlFor="age"
+                    className="w-1/3 text-right font-medium text-gray-700"
+                  >
+                    Age
+                  </Label>
+                  <Input
+                    type="number"
+                    id="age"
+                    placeholder="Enter Driver Age"
+                    className="w-full"
+                  />
+                </div>
+
+                {/* Route Field */}
+                <div className="flex items-center gap-4">
+                  <Label
+                    htmlFor="route"
+                    className="w-1/3 text-right font-medium text-gray-700"
+                  >
+                    License No
+                  </Label>
+                  <Input
+                    id="route"
+                    placeholder="Enter Lisence No"
+                    className="w-full"
+                  />
+                </div>
+              </div>
+
+              <DialogFooter>
+                <Button
+                  type="submit"
+                  className="text-white px-4 py-2 rounded-lg shadow-md transition-all duration-300 ease-in-out"
+                >
+                  Insert
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
 
       {/* Drivers List */}
@@ -148,7 +227,7 @@ function DriverView() {
         {drivers?.map((driver) => (
           <div
             key={driver?.driver_id}
-            className="max-w-sm p-6 bg-black border border-gray-700 rounded-lg shadow-lg transition-transform hover:scale-105"
+            className="max-w-sm p-6 bg-gray-800 border border-gray-700 rounded-lg shadow-lg transition-transform hover:scale-105"
           >
             {/* Dropdown Button */}
             <div className="flex justify-end">
@@ -163,19 +242,149 @@ function DriverView() {
                   className="bg-black border border-gray-700 text-white"
                 >
                   <DropdownMenuItem asChild>
-                    <Link to={`/trips_home/count_trip/${driver?.driver_id}`}>
-                      Count Trip
-                    </Link>
+                    <Button
+                      asChild
+                      className="w-full cursor-pointer hover:!bg-gray-800 hover:!text-white  bg-black"
+                    >
+                      <Link to={`/trips_home/count_trip/${driver?.driver_id}`}>
+                        Count Trip
+                      </Link>
+                    </Button>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link to={`/trips_home/payment/${driver?.driver_id}`}>
-                      Count Payment
-                    </Link>
+                    <Button
+                      asChild
+                      className="w-full cursor-pointer hover:!bg-gray-800 hover:!text-white  bg-black"
+                    >
+                      <Link to={`/trips_home/payment/${driver?.driver_id}`}>
+                        Count Payment
+                      </Link>
+                    </Button>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>Edit</DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button className="w-full  bg-black">
+                          Edit Driver
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[500px] bg-gray-50 p-6 rounded-lg shadow-lg">
+                        <DialogHeader>
+                          <DialogTitle className="text-xl font-semibold text-gray-800">
+                            Update Driver Information
+                          </DialogTitle>
+                          <DialogDescription className="text-sm text-gray-500">
+                            Fill out the details that you want to update, keep
+                            empty if information has nothing to update
+                          </DialogDescription>
+                        </DialogHeader>
 
-                  <DropdownMenuItem className="text-red-600">
-                    Delete
+                        <div className="grid gap-6 py-6">
+                          {/* Driver ID Field */}
+                          <div className="flex justify-center w-full h-full items-center gap-4">
+                            <Label
+                              htmlFor="currentDriverId"
+                              className="w-1/3 text-right font-medium text-gray-700"
+                            >
+                              Current Driver ID
+                            </Label>
+                            <Input
+                              id="currentDriverId"
+                              placeholder="Enter Current Driver ID"
+                              className="w-full"
+                            />
+                          </div>
+
+                          {/* Bus ID Field */}
+                          <div className="flex items-center gap-4">
+                            <Label
+                              htmlFor="NewBusId"
+                              className="w-1/3 text-right font-medium text-gray-700"
+                            >
+                              New Bus ID
+                            </Label>
+                            <Input
+                              id="NewBusId"
+                              placeholder="Enter New Driver Name"
+                              className="w-full"
+                            />
+                          </div>
+                          <div className="flex items-center gap-4">
+                            <Label
+                              htmlFor="name"
+                              className="w-1/3 text-right font-medium text-gray-700"
+                            >
+                              Name
+                            </Label>
+                            <Input
+                              id="name"
+                              placeholder="Enter New Name"
+                              className="w-full"
+                            />
+                          </div>
+                          <div className="flex items-center gap-4">
+                            <Label
+                              htmlFor="age"
+                              className="w-1/3 text-right font-medium text-gray-700"
+                            >
+                              Age
+                            </Label>
+                            <Input
+                              type="number"
+                              id="age"
+                              placeholder="Enter Driver Age"
+                              className="w-full"
+                            />
+                          </div>
+
+                          {/* Route Field */}
+                          <div className="flex items-center gap-4">
+                            <Label
+                              htmlFor="licenseNo"
+                              className="w-1/3 text-right font-medium text-gray-700"
+                            >
+                              License No
+                            </Label>
+                            <Input
+                              id="licenseNo"
+                              placeholder="Enter Lisence No"
+                              className="w-full"
+                            />
+                          </div>
+                        </div>
+
+                        <DialogFooter>
+                          <Button
+                            type="submit"
+                            className="text-white px-4 py-2 rounded-lg shadow-md transition-all duration-300 ease-in-out"
+                          >
+                            Update
+                          </Button>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
+                  </DropdownMenuItem>
+
+                  <DropdownMenuItem asChild>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button className="w-full text-red-700 bg-black">
+                          Delete
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>Are you absolutely sure?</DialogTitle>
+                          <DialogDescription>
+                            This action cannot be undone. Are you sure you want
+                            to permanently delete this file from our servers?
+                          </DialogDescription>
+                        </DialogHeader>
+                        <DialogFooter>
+                          <Button type="submit">Confirm</Button>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

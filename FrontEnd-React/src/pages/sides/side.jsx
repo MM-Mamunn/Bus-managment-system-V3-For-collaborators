@@ -108,8 +108,18 @@ const Side = () => {
       </div>
 
       {/* Drivers Section */}
+
       <div className="mb-4">
-        <div
+        <Link
+          to="/drivers_home/driver_view"
+          className="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded cursor-pointer"
+          onClick={() => setShowSideBar(!showSideBar)}
+        >
+          <FaUserTie className="text-lg" />
+          <span>Drivers</span>
+          {/* {openSection === "trips" ? <FaChevronDown /> : <FaChevronRight />} */}
+        </Link>
+        {/* <div
           className="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded cursor-pointer"
           onClick={() => toggleSection("drivers")}
         >
@@ -160,7 +170,7 @@ const Side = () => {
               </Link>
             </li>
           </ul>
-        )}
+        )} */}
       </div>
 
       {/* Buses Section */}
